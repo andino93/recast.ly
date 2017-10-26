@@ -30,6 +30,13 @@ class App extends React.Component {
     );
   }
   
+  onInput(data) {
+    this.setState({
+      currentVideo: data[0],
+      videoCollection: data
+    });
+  }
+  
   videoEntryClick(video) {
     this.setState({
       currentVideo: video
@@ -37,7 +44,11 @@ class App extends React.Component {
   }
   
   search(value) {
-    console.log(value);
+    searchYouTube(value, 5, this.onInput.bind(this));
+  }
+  
+  componentDidMount() {
+    this.search(this.state.searchQuery);
   }
 }
 

@@ -1,15 +1,14 @@
-var searchYouTube = (options, callback) => {
-  let data = 
+var searchYouTube = (query, maxResults, callback) => {
   
   $.ajax({
     type: 'GET',
     url: 'https://www.googleapis.com/youtube/v3/search',
     data: {
-      key: options.key,
-      q: options.query,
-      maxResults: options.max,
+      key: YOUTUBE_API_KEY,
+      q: query,
+      maxResults: maxResults,
       part: 'snippet',
-      type: 'video'    
+      type: 'video' 
     },
     success: function(data) {
       callback(data.items);
@@ -20,4 +19,4 @@ var searchYouTube = (options, callback) => {
   });
 };
 
-window.searchYouTube = searchYouTube;
+window.searchYouTube = _.debounce(searchYouTube, 500);
